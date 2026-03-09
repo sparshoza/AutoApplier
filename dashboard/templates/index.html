@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Pilot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <h1>Job Pilot</h1>
+    </div>
+    <div class="topbar-center" id="live-stats">
+      <span id="stat-queued">0 queued</span>
+      <span class="dot">&middot;</span>
+      <span id="stat-applied">0 applied</span>
+      <span class="dot">&middot;</span>
+      <span id="stat-review">0 need review</span>
+    </div>
+    <div class="topbar-right">
+      <button class="btn btn-primary" onclick="triggerScrape()">Scrape Now</button>
+      <button class="btn btn-accent" onclick="triggerApply()">Apply Now</button>
+      <div class="reauth-dropdown" id="reauth-dropdown">
+        <button class="btn btn-secondary" onclick="toggleReauthMenu()">Re-authenticate &#9662;</button>
+        <div class="reauth-menu" id="reauth-menu"></div>
+      </div>
+      <label class="toggle-label">
+        <input type="checkbox" id="auto-refresh" checked>
+        Auto-refresh
+      </label>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <button class="filter-btn active" data-status="all">All <span class="badge" id="badge-all">0</span></button>
+        <button class="filter-btn" data-status="queued">Queued <span class="badge badge-yellow" id="badge-queued">0</span></button>
+        <button class="filter-btn" data-status="applying">Applying <span class="badge badge-blue" id="badge-applying">0</span></button>
+        <button class="filter-btn" data-status="applied">Applied <span class="badge badge-green" id="badge-applied">0</span></button>
+        <button class="filter-btn" data-status="needs_review">Needs Review <span class="badge badge-red" id="badge-needs_review">0</span></button>
+        <button class="filter-btn" data-status="skipped">Skipped <span class="badge badge-gray" id="badge-skipped">0</span></button>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sched-panel" id="scrape-sched">
+        <div class="sched-header">
+          <span class="sched-title">Scrape Schedule</span>
+          <label class="switch">
+            <input type="checkbox" id="scrape-enabled" checked>
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+        <div class="sched-body" id="scrape-sched-body">
+          <div class="sched-row">
+            <label for="scrape-start">From</label>
+            <input type="time" id="scrape-start" value="09:00">
+          </div>
+          <div class="sched-row">
+            <label for="scrape-end">To</label>
+            <input type="time" id="scrape-end" value="17:00">
+          </div>
+          <div class="sched-row">
+            <label for="scrape-interval">Every</label>
+            <select id="scrape-interval">
+              <option value="15">15 min</option>
+              <option value="30">30 min</option>
+              <option value="60" selected>1 hour</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="sched-panel" id="apply-sched">
+        <div class="sched-header">
+          <span class="sched-title">Apply Schedule</span>
+          <label class="switch">
+            <input type="checkbox" id="apply-enabled" checked>
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+        <div class="sched-body" id="apply-sched-body">
+          <div class="sched-row">
+            <label for="apply-start">From</label>
+            <input type="time" id="apply-start" value="21:00">
+          </div>
+          <div class="sched-row">
+            <label for="apply-end">To</label>
+            <input type="time" id="apply-end" value="23:59">
+          </div>
+          <div class="sched-row">
+            <label for="apply-interval">Every</label>
+            <select id="apply-interval">
+              <option value="15" selected>15 min</option>
+              <option value="30">30 min</option>
+              <option value="60">1 hour</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary sched-save-btn" id="save-schedules" onclick="saveSchedules()">Save Schedules</button>
+    </aside>
+
+    <main class="main-area" id="job-list">
+      <div class="empty-state">Loading jobs&hellip;</div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="screenshot-modal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeScreenshotModal()">&times;</button>
+      <img id="screenshot-img" src="" alt="Screenshot">
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

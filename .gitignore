@@ -1,0 +1,9 @@
+db/jobs.db
+profile.json
+email_handler/token.json
+email_handler/credentials.json
+screenshots/
+browser_data/
+__pycache__/
+*.pyc
+.env

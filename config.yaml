@@ -1,0 +1,47 @@
+keywords:
+  include:
+    - "software engineer"
+    - "backend engineer"
+    - "full stack"
+    - "python developer"
+    - "software developer"
+  exclude:
+    - "senior"
+    - "staff"
+    - "principal"
+    - "director"
+    - "manager"
+    - "lead"
+    - "intern"
+
+date_cutoff_days: 7
+
+skip_companies:
+  - "Example Corp"
+
+scrape_schedule:
+  enabled: true
+  start_time: "09:00"
+  end_time: "17:00"
+  interval_minutes: 60
+
+apply_schedule:
+  enabled: true
+  start_time: "21:00"
+  end_time: "23:59"
+  interval_minutes: 15
+
+rate_limits:
+  min_delay_seconds: 30
+  max_per_hour: 15
+  per_ats_cooldown_seconds: 60
+
+otp_timeout_seconds: 120
+
+otp_email_patterns:
+  greenhouse: "no-reply@greenhouse.io"
+  lever: "no-reply@lever.co"
+  ashby: "verify@ashbyhq.com"
+  workday: "noreply@myworkday.com"
+
+dashboard_port: 5000
